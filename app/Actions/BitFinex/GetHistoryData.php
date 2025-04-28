@@ -59,12 +59,17 @@ class GetHistoryData
 
         return collect($response->json())->map(function ($item) use ($midPriceAction) {
             $dto = new PriceItemResponse($item);
-            $price = new Price([
-                'pair' => $dto->pair,
-                'date' => Carbon::parse($dto->date / 1000),
-                'ask' => $dto->ask,
-                'bid' => $dto->bid,
-            ]);
+
+            $price = Price::updateOrCreate(
+                [
+                    'pair' => $dto->pair,
+                    'date' => Carbon::parse($dto->date / 1000),
+                ],
+                [
+                    'ask' => $dto->ask,
+                    'bid' => $dto->bid,
+                ]
+            );
 
             $price->save();
             return [
