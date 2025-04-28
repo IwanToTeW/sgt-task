@@ -30,8 +30,8 @@ class GetHistoryData
             throw(new \Exception('Start Date cannot be in the future'));
         }
 
-//        todo
-//        check if we have the results in db and return them instead of making a request again
+        //todo
+        //check if we have the results in db and return them instead of making a request again
 
         $response = Http::bitFinex()
             ->get($this->getEndpoint($isDayView, $params['pair'] ?? CurrencyPair::BTC_USD->value, $start->timestamp, $end->timestamp));
@@ -44,8 +44,8 @@ class GetHistoryData
         $startTimestamp = $startTimestamp * 1000;
         $endTimestamp = $endTimestamp * 1000;
 
-// todo potentially use the pair to determine the limit when week view is implemented
-//        $limit = ($pair === ViewInterval::Day->value) ? 24 : 168;
+        // todo potentially use the pair to determine the limit when week view is implemented
+        // $limit = ($pair === ViewInterval::Day->value) ? 24 : 168;
         $limit = 24;
         if ($isDayView) {
             return 'tickers/hist?symbols='.$pair.'&limit='.$limit.'&start='.$startTimestamp.'&end='.$endTimestamp;

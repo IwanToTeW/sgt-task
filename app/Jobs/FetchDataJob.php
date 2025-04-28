@@ -17,7 +17,7 @@ class FetchDataJob implements ShouldQueue
      */
     public function handle(): void
     {
-//        todo test if the job is running as expected
+        //todo test if the job is running as expected
         collect(CurrencyPair::cases())
             ->each(fn($pair) => (new GetHistoryData)->execute([
                 'interval' => ViewInterval::Day->value,
